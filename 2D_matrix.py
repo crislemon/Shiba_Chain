@@ -20,7 +20,7 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 1 #number of atoms
+N_atoms = 3 #number of atoms
 borde = 2
 ancho = 3
 alpha = 3.0 #SOC
@@ -94,7 +94,8 @@ plt.plot(peaks,spectro_chain[ndexes],'y*')
 plt.xlabel('mV')
 plt.ylabel('PDOS')
 plt.title('We use peak # %i ' %i)
-plt.savefig('spectro.pdf')
+plt.savefig('results/spectro.pdf')
+
 
 
 #####
@@ -106,7 +107,7 @@ plt.plot(profile,'--bo', linewidth=0.8)
 plt.title('Profile at E = %f meV' %titulo)
 plt.xlabel('Atom index')
 plt.ylabel('PDOS')
-plt.savefig('profile.pdf')
+plt.savefig('results/profile.pdf')
 
 
 ######
@@ -126,7 +127,7 @@ plt.legend()
 plt.xlabel('mV')
 plt.ylabel('PDOS')
 plt.title('Nambu components')
-plt.savefig('Nambu.pdf')
+plt.savefig('results/Nambu.pdf')
 
 
 ###
@@ -152,8 +153,8 @@ for i_omega in range(N_omega):
 "Save data"
 data_spectro = np.array([vv,spectro[row, borde, :]])
 data_3D = z
-np.savetxt('data_spectro.txt', data_spectro)
-np.savetxt('data_3D.txt', data_3D)
+np.savetxt('results/data_spectro.txt', data_spectro)
+np.savetxt('results/data_3D.txt', data_3D)
 
 ###
 "2D plots"
@@ -161,7 +162,7 @@ plt.figure(4)
 plt.imshow(z, cmap = plt.cm.jet)
 plt.colorbar()
 plt.title('FM E = %f meV' %titulo)
-plt.savefig('2D.pdf')
+plt.savefig('results/2D.pdf')
 
 plt.figure(5)
 plt.imshow(e, aspect='auto', cmap = plt.cm.jet)
@@ -176,7 +177,7 @@ plt.xlabel('Energy (meV)')
 plt.ylabel('atom index')
 plt.title('Atom index vs spectro')
 plt.colorbar()
-plt.savefig('map.pdf')
+plt.savefig('results/map.pdf')
 
 
 ###
@@ -189,7 +190,7 @@ ax = fig2.add_subplot((111), projection='3d')
 ax.plot_wireframe(X, Y, z)
 plt.title('FM E = %f meV' %titulo)
 ax.set_zlabel('PDOS')
-plt.savefig('3D.pdf')
+plt.savefig('results/3D.pdf')
 
 
 
