@@ -15,7 +15,7 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 
-import detect_peaks as dp
+
 import time
 
 pi=np.pi
@@ -25,7 +25,7 @@ borde = 2
 ancho = 3
 alpha = 3.0 #SOC
 state = 'FM' #spin state
-k_F = 0.183
+k_F = 0.5
 U = 5500./27211.6#%potential scatt
 U = 0
 j = 1800./27211.6
@@ -73,29 +73,10 @@ for i_atom in range(N_y):
              spectro_downhole[i_atom , j_atom, i_omega]= - (trdown_hole.imag)/(2*pi)
 #####
 "Plot the spectrum in the first atom"
-
 row = int(N_y/2)
 
-spectro_chain = spectro[row, borde, :]#spectrum in the first atom
-ndexes = dp.detect_peaks(spectro_chain)#find the peaks
-peaks = vv[ndexes]
-
-minpeak = min(abs(peaks))#find the minimum
-peaks2 = abs(peaks)
-peaks = peaks.tolist()
-peaks2 = peaks2.tolist()
-i=peaks2.index(minpeak)#the index of the peak closest to zero
-titulo = vv[ndexes[i]]
-
-plt.figure(1)
-plt.style.use('seaborn-bright')
-plt.plot(vv, spectro_chain,label='%s atom' % i_atom,linewidth=0.8)
-plt.plot(peaks,spectro_chain[ndexes],'y*')
-plt.xlabel('mV')
-plt.ylabel('PDOS')
-plt.title('We use peak # %i ' %i)
-plt.savefig('results/spectro.pdf')
-
+import plot_espectro as spect
+(titulo, ndexes, i) = spect.espectro(spectro, row, vv, borde)
 
 
 #####
