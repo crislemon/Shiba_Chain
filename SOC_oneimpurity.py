@@ -5,6 +5,9 @@ Created on Fri Dec  7 12:28:09 2018
 
 @author: cristina
 """
+#########
+# one impurity with different SOC for spin along z and along x directions
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,8 +20,13 @@ n=1.0
 
 alpha=np.linspace(0, 5.0, 5)
 
-Vpeak_z =np.zeros(len(alpha))
-Vpeak_z =np.zeros(len(alpha))
+##########
+#out of plane spin (along z)
+##########
+
+
+Vpeak_z_plus = np.zeros(len(alpha))
+Vpeak_z_minus = np.zeros(len(alpha))
 
 N_atoms = 1
 state = 'FM'
@@ -67,28 +75,41 @@ for n_i in range(len(alpha)):
     for i in ndexes:
         if vv[i] >= 0:
             Shiba_plus.append(vv[i])
-        if vv[i] <= 0:
+        elif vv[i] <= 0:
             Shiba_minus.append(vv[i])
     
-    Vpeak_z[n_i]= Shiba_plus[0]     
-    Vpeak_z[n_i]= Shiba_minus[-1]
+    Vpeak_z_plus[n_i]= Shiba_plus[0]     
+    Vpeak_z_minus[n_i]= Shiba_minus[-1]
    
  
+##########
+#inplane spin (along x)
+##########
 
-
-#Vpeak_FM1_plus =np.zeros(len(alpha))
-#Vpeak_FM1_minus =np.zeros(len(alpha))
-#Vpeak_FM2_plus =np.zeros(len(alpha))
-#Vpeak_FM2_minus =np.zeros(len(alpha))
+state = 'inplane'
+Vpeak_x_plus = np.zeros(len(alpha))
+Vpeak_x_minus = np.zeros(len(alpha))
 
 for n_i in range(len(alpha)):
     
     #spin || x
-    (gg , N_matrix , N_omega , vv, spectro) = sc.Shiba_Chain2(n, N_atoms, state, alpha[n_i], borde, ancho, k_f, U)
+    (gg , N_x, N_y, N_omega , vv, Self, Go) = sc.Shiba_Chain2(n, N_atoms, state, alpha[n_i], borde, ancho, k_f, U)
+    
+    spectro = np.zeros([N_y, N_x, N_omega], dtype= 'float')
+
+    for i_atom in range(N_y):
+        for j_atom in range(N_x):
+            I = i_atom*N_x + j_atom
+
+            for i_omega in range(N_omega):
+             
+                tr = gg[I*4 + 0, I*4 + 0, i_omega] + gg[I*4 + 1, I*4 + 1, i_omega]
+                spectro[i_atom , j_atom, i_omega]= - (tr.imag)/(2*pi)
+             
     
     plt.figure(2)
     plt.style.use('seaborn-bright')
-    row = int(N_matrix/2)
+    row = int(N_y/2)
     plt.plot(vv, spectro[row, borde,:],linewidth=0.8, label = '%i' % n_i)
     ndexes = dp.detect_peaks(spectro[row, borde,:])
     peaks = vv[ndexes]
@@ -107,28 +128,25 @@ for n_i in range(len(alpha)):
     for i in ndexes:
         if vv[i]>=0:
             Shiba_plus.append(vv[i])
-        else:
+        elif vv[i] <= 0:
             Shiba_minus.append(vv[i])
 
-#    Vpeak_FM1_plus[n_i]=Shiba_plus[0]
-#    Vpeak_FM1_minus[n_i]=Shiba_minus[-1]
-##    Vpeak_FM2_plus[n_i]=Shiba_plus[0]
-##    Vpeak_FM2_minus[n_i]=Shiba_minus[-1]
+    Vpeak_x_plus[n_i]=Shiba_plus[0]
+    Vpeak_x_minus[n_i]=Shiba_minus[-1]
+
   
 
 #Delta= 1.0#meV
 #    
 plt.figure(3)
 #plt.style.use('seaborn-pastel')
-plt.plot(alpha,Vpeak_AF_plus,'b.-',alpha,Vpeak_AF_minus,'b.-',label = '|| z')
-#plt.plot(alpha,Vpeak_FM1_plus,'r.-',alpha,Vpeak_FM1_minus,'r.-', label = '|| x')
-##plt.plot(alpha,Vpeak_FM2_plus,'r.-',alpha,Vpeak_FM2_minus,'r.-', label = 'FM')
-#plt.show()
-#
-#plt.legend()
-#plt.xlabel('alpha')
-#plt.ylabel('Shiba peak (meV)')
-#plt.title('SOC')
+plt.plot(alpha,Vpeak_z_plus,'b.-',alpha,Vpeak_z_minus,'b.-',label = '|| z')
+plt.plot(alpha,Vpeak_x_plus,'r.-',alpha,Vpeak_x_minus,'r.-', label = '|| x')
+plt.show()
+plt.legend()
+plt.xlabel('alpha')
+plt.ylabel('Shiba peak (meV)')
+plt.title('SOC')
 #
 #
 #plt.figure(4)

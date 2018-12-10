@@ -39,6 +39,9 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U):
             thetaS[2*i+1] = pi
         if N_atoms % 2 == 0:
             thetaS[-1] = pi
+    elif (state == 'inplane'):
+        thetaS = np.full(N_atoms, - pi/2.0, dtype = 'float')
+        
 
     phi = np.zeros(N_atoms)
     
