@@ -74,25 +74,18 @@ for i_atom in range(N_y):
 #####
 "Plot the spectrum in the first atom"
 row = int(N_y/2)
-
 import plot_espectro as spect
 (titulo, ndexes, i) = spect.espectro(spectro, row, vv, borde)
 
 
 #####
 "Plot the chain profile"
-plt.figure(2)
-profile = np.zeros(N_x, dtype= 'float')
-profile = spectro[row,:,ndexes[i]]
-plt.plot(profile,'--bo', linewidth=0.8)
-plt.title('Profile at E = %f meV' %titulo)
-plt.xlabel('Atom index')
-plt.ylabel('PDOS')
-plt.savefig('results/profile.pdf')
+import plot_profile as pf
+pf.profile(N_x, titulo, spectro, row, ndexes, i)
 
 
 ######
-"Plot the spectrum up and down"
+"Plot the spectrum for all Nambu operators"
 plt.figure(3)
 ###cambiado!!!!!!
 spectro_up_1 = spectro_up[row, borde, :]
