@@ -12,10 +12,9 @@ Created on Fri Oct 19 17:53:46 2018
 import numpy as np
 import matplotlib as mpl
 mpl.use('Agg')
-import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
 
-import detect_peaks as dp
+
+
 import time
 
 pi=np.pi
@@ -25,7 +24,7 @@ borde = 2
 ancho = 3
 alpha = 3.0 #SOC
 state = 'FM' #spin state
-k_F = 0.183
+k_F = 0.5
 U = 5500./27211.6#%potential scatt
 U = 0
 j = 1800./27211.6
@@ -73,125 +72,39 @@ for i_atom in range(N_y):
              spectro_downhole[i_atom , j_atom, i_omega]= - (trdown_hole.imag)/(2*pi)
 #####
 "Plot the spectrum in the first atom"
-
 row = int(N_y/2)
-
-spectro_chain = spectro[row, borde, :]#spectrum in the first atom
-ndexes = dp.detect_peaks(spectro_chain)#find the peaks
-peaks = vv[ndexes]
-
-minpeak = min(abs(peaks))#find the minimum
-peaks2 = abs(peaks)
-peaks = peaks.tolist()
-peaks2 = peaks2.tolist()
-i=peaks2.index(minpeak)#the index of the peak closest to zero
-titulo = vv[ndexes[i]]
-
-plt.figure(1)
-plt.style.use('seaborn-bright')
-plt.plot(vv, spectro_chain,label='%s atom' % i_atom,linewidth=0.8)
-plt.plot(peaks,spectro_chain[ndexes],'y*')
-plt.xlabel('mV')
-plt.ylabel('PDOS')
-plt.title('We use peak # %i ' %i)
-plt.savefig('results/spectro.pdf')
-
+import plot_espectro as spect
+(titulo, ndexes, i) = spect.espectro(spectro, row, vv, borde)
 
 
 #####
 "Plot the chain profile"
-plt.figure(2)
-profile = np.zeros(N_x, dtype= 'float')
-profile = spectro[row,:,ndexes[i]]
-plt.plot(profile,'--bo', linewidth=0.8)
-plt.title('Profile at E = %f meV' %titulo)
-plt.xlabel('Atom index')
-plt.ylabel('PDOS')
-plt.savefig('results/profile.pdf')
+import plot_profile as pf
+pf.profile(N_x, titulo, spectro, row, ndexes, i)
 
 
 ######
-"Plot the spectrum up and down"
-plt.figure(3)
-###cambiado!!!!!!
-spectro_up_1 = spectro_up[row, borde, :]
-spectro_down_1 = spectro_down[row, borde, :]
-spectro_uphole_1 = spectro_uphole[row, borde, :]
-spectro_downhole_1 = spectro_downhole[row, borde, :]
-
-plt.plot(vv, spectro_up_1,label='Nambu 1',linewidth=0.8)
-plt.plot(vv, spectro_down_1,label='Nambu 2',linewidth=0.8)
-plt.plot(vv, spectro_uphole_1,label='Nambu 3',linewidth=0.8)
-plt.plot(vv, spectro_downhole_1,label='Nambu 4',linewidth=0.8)
-plt.legend()
-plt.xlabel('mV')
-plt.ylabel('PDOS')
-plt.title('Nambu components')
-plt.savefig('results/Nambu.pdf')
+"Plot the spectrum for all Nambu operators"
+import plot_nambu as nb
+nb.Nambu(spectro_up, spectro_down, spectro_uphole, spectro_downhole, vv, row, borde)
 
 
 ###
-"2D and 3D maps"
-#N_x X N_y array
-z = np.zeros([N_y, N_x], dtype = float)
-spectra = spectro[:,:,ndexes[i]]
+"creates 2D maps"
 
+import maps as mp
+(e, z) = mp.maps(N_y, N_x, spectro, ndexes, i, N_omega, row, borde, vv)
 
-for j_atom in range(N_y):
-    for i_atom in range(N_x):
-        z[j_atom,i_atom] = spectra[j_atom,i_atom]
+#z is the PDOS every where in the array for the energy 
+#corresponding to the closest peaks to zero in the first atom
 
-#array for omega
-e = np.zeros([N_x, N_omega], dtype = float)
-spectra2 = spectro[row,:,:]
-
-for i_omega in range(N_omega):
-    for i_atom in range(N_x):
-        e[i_atom,i_omega] = spectra2[i_atom,i_omega]
-
-###
-"Save data"
-data_spectro = np.array([vv,spectro[row, borde, :]])
-data_3D = z
-np.savetxt('results/data_spectro.txt', data_spectro)
-np.savetxt('results/data_3D.txt', data_3D)
-
-###
-"2D plots"
-plt.figure(4)
-plt.imshow(z, cmap = plt.cm.jet)
-plt.colorbar()
-plt.title('FM E = %f meV' %titulo)
-plt.savefig('results/2D.pdf')
-
-plt.figure(5)
-plt.imshow(e, aspect='auto', cmap = plt.cm.jet)
-ticks2 = np.linspace(0,N_x-1,5, dtype = 'int')
-ticks = np.linspace(0,N_omega-1,3, dtype = 'int')
-ticklabels = vv[ticks]
-for i in range(len(ticklabels)):
-    ticklabels[i] = format(ticklabels[i], ".3g")
-plt.xticks(ticks, ticklabels)
-plt.yticks(ticks2)
-plt.xlabel('Energy (meV)')
-plt.ylabel('atom index')
-plt.title('Atom index vs spectro')
-plt.colorbar()
-plt.savefig('results/map.pdf')
+#e is the spectrum all along the atomic chain
 
 
 ###
-"3D plot"
-Y = list(range(N_y))
-X = list(range (N_x))
-X, Y = np.meshgrid(X, Y)
-fig2 = plt.figure(6)
-ax = fig2.add_subplot((111), projection='3d')
-ax.plot_wireframe(X, Y, z)
-plt.title('FM E = %f meV' %titulo)
-ax.set_zlabel('PDOS')
-plt.savefig('results/3D.pdf')
-
+"2D and 3D plots"
+import plot_2D3D as map2D
+map2D.map2D_3D(z,e, titulo, N_x, N_y, N_omega, vv)
 
 
 "plot Green's function"
