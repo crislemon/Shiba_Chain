@@ -15,30 +15,35 @@ import Shiba_Chain2D as sc
 import detect_peaks as dp
 
 pi=np.pi
-
-n=1.0
-
 alpha=np.linspace(0, 5.0, 5)
 
 ##########
 #out of plane spin (along z)
 ##########
 
-
-Vpeak_z_plus = np.zeros(len(alpha))
-Vpeak_z_minus = np.zeros(len(alpha))
-
+#parameters
+n=1.0
 N_atoms = 1
 state = 'FM'
 borde = 2
 ancho = 3
-k_f = 0.2
+k_f = 1.0
 U = 0
+j = 3.0/(pi*4.0) 
+DOS = 1.0
+s = 1
+delta = 1.0/27211.6 #SC gap
+
+Vpeak_z_plus = np.zeros(len(alpha))
+Vpeak_z_minus = np.zeros(len(alpha))
+
+
 
 for n_i in range(len(alpha)):
     
     #spin || z case
-    (gg , N_x, N_y, N_omega , vv, Self, Go) = sc.Shiba_Chain2(n, N_atoms, state, alpha[n_i], borde, ancho, k_f, U)
+    (gg , N_x, N_y, N_omega , vv, Self, Go) = sc.Shiba_Chain2(n, N_atoms, state, alpha[n_i], borde, 
+    ancho, k_f, U, j, DOS, s, delta)
     
     
     spectro = np.zeros([N_y, N_x, N_omega], dtype= 'float')
@@ -93,7 +98,8 @@ Vpeak_x_minus = np.zeros(len(alpha))
 for n_i in range(len(alpha)):
     
     #spin || x
-    (gg , N_x, N_y, N_omega , vv, Self, Go) = sc.Shiba_Chain2(n, N_atoms, state, alpha[n_i], borde, ancho, k_f, U)
+    (gg , N_x, N_y, N_omega , vv, Self, Go) = sc.Shiba_Chain2(n, N_atoms, state, alpha[n_i], borde, 
+    ancho, k_f, U, j, DOS, s, delta)
     
     spectro = np.zeros([N_y, N_x, N_omega], dtype= 'float')
 

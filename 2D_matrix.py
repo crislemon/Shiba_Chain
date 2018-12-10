@@ -28,12 +28,17 @@ state = 'FM' #spin state
 k_F = 0.183
 U = 5500./27211.6#%potential scatt
 U = 0
+j = 1800./27211.6
+DOS = 1.0
+s = 5.0/2.0
+delta = 0.75/27211.6 #SC gap
 
 ################################################# We solve Dyson's equation
 
 import Shiba_Chain2D as sc2
 t1=time.time()
-(gg , N_x, N_y, N_omega , vv, Self, Go) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, k_F, U)
+(gg , N_x, N_y, N_omega , vv, Self, Go) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, k_F, U,
+j, DOS, s, delta)
 t2 = time.time()
  
 print('The program is finished after', t2 - t1)

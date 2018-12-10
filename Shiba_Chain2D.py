@@ -7,7 +7,7 @@ Created on Mon Oct  1 12:37:27 2018
 """
 #everything in atomic units
 
-def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U):
+def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, delta):
     
     # d = nstep*a distance between sites
     # N_atoms in the chain
@@ -30,6 +30,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U):
     
     "Magnetic impurities parameters and spin state"
     S = 5.0/2.0 #Cr
+    S = s
 
     if (state == 'FM'):
         thetaS = np.zeros(N_atoms, dtype = 'float')
@@ -51,7 +52,8 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U):
     "Material data Bi2Pd"
     Damping = 0.018/27211.6 #Dynes damping
     Delta=0.75/27211.6 #SC gap
-    DOS_o=1 #Normal phase DOS
+    Delta = delta
+    DOS_o = DOS #Normal phase DOS
     Fermi_k = k_f
     mass_eff=1 #SC Band effective mass
     a_interatomic=nstep*3.36/0.529
@@ -77,6 +79,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U):
 
     "Kondo hamiltonian"
     J = 1800./27211.6
+    J = j
     #J = 3200.0/27211.6
     #U = 5500./27211.6#%potential scatt
     
