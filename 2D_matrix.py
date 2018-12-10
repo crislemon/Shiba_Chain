@@ -86,22 +86,8 @@ pf.profile(N_x, titulo, spectro, row, ndexes, i)
 
 ######
 "Plot the spectrum for all Nambu operators"
-plt.figure(3)
-###cambiado!!!!!!
-spectro_up_1 = spectro_up[row, borde, :]
-spectro_down_1 = spectro_down[row, borde, :]
-spectro_uphole_1 = spectro_uphole[row, borde, :]
-spectro_downhole_1 = spectro_downhole[row, borde, :]
-
-plt.plot(vv, spectro_up_1,label='Nambu 1',linewidth=0.8)
-plt.plot(vv, spectro_down_1,label='Nambu 2',linewidth=0.8)
-plt.plot(vv, spectro_uphole_1,label='Nambu 3',linewidth=0.8)
-plt.plot(vv, spectro_downhole_1,label='Nambu 4',linewidth=0.8)
-plt.legend()
-plt.xlabel('mV')
-plt.ylabel('PDOS')
-plt.title('Nambu components')
-plt.savefig('results/Nambu.pdf')
+import plot_nambu as nb
+nb.Nambu(spectro_up, spectro_down, spectro_uphole, spectro_downhole, vv, row, borde)
 
 
 ###
