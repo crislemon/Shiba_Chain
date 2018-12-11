@@ -6,6 +6,7 @@ Created on Mon Oct  1 12:37:27 2018
 @author: cristina
 """
 #everything in atomic units
+import numpy as np
 
 def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, delta):
     
@@ -14,12 +15,9 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     #state = AF or FM
     #alpha in eV*A for SOC
 
-    import numpy as np
-   
-
     "SC matrix" 
-    "N_x = number of sites along the chain "
-    "N_y = number of sites perpendicular to the chain"
+    #N_x = number of sites along the chain
+    #N_y = number of sites perpendicular to the chain
     
     pi=np.pi
     N_x = N_atoms + 2*borde
@@ -80,10 +78,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     "Kondo hamiltonian"
     J = 1800./27211.6
     J = j
-    #J = 3200.0/27211.6
-    #U = 5500./27211.6#%potential scatt
     
-
 
     "We calculate the Green's functions and solve Dyson eq"
     
@@ -113,5 +108,5 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
         
         
         
-    return(GG , N_x, N_y, N_omega , vv, Self, Go)
+    return(GG , N_x, N_y, N_omega , vv)
 

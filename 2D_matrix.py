@@ -12,38 +12,37 @@ Created on Fri Oct 19 17:53:46 2018
 import numpy as np
 import matplotlib as mpl
 mpl.use('Agg')
-
-
-
 import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 3 #number of atoms
+N_atoms = 20 #number of atoms
 borde = 2
-ancho = 3
+ancho = 5
 alpha = 3.0 #SOC
 state = 'FM' #spin state
-k_F = 0.5
+k_F = 0.183
 U = 5500./27211.6#%potential scatt
-U = 0
-j = 1800./27211.6
+U = 0.0
+j = 1800./27211.6 #coupling
 DOS = 1.0
-s = 5.0/2.0
+s = 5.0/2.0 #spin
 delta = 0.75/27211.6 #SC gap
 
 ################################################# We solve Dyson's equation
 
 import Shiba_Chain2D as sc2
 t1=time.time()
-(gg , N_x, N_y, N_omega , vv, Self, Go) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, k_F, U,
-j, DOS, s, delta)
+(gg , N_x, N_y, N_omega , vv) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
+k_F, U, j, DOS, s, delta)
 t2 = time.time()
  
 print('The program is finished after', t2 - t1)
 
 ##################################################
 
+#####
+"The spectrum is obtained from two first Nambu components"
 spectro = np.zeros([N_y, N_x, N_omega], dtype= 'float')
 spectro_up = np.zeros([N_y, N_x, N_omega], dtype= 'float')#spin up spectrum
 spectro_down = np.zeros([N_y, N_x, N_omega], dtype= 'float')#spin down spectrum
@@ -98,7 +97,7 @@ import maps as mp
 #z is the PDOS every where in the array for the energy 
 #corresponding to the closest peaks to zero in the first atom
 
-#e is the spectrum all along the atomic chain
+#e is the spectrum along the atomic chain
 
 
 ###
