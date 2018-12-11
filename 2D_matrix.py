@@ -16,8 +16,8 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 20 #number of atoms
-borde = 2
+N_atoms = 25 #number of atoms
+borde = 3
 ancho = 5
 alpha = 3.0 #SOC
 state = 'FM' #spin state
