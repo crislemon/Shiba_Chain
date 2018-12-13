@@ -6,7 +6,7 @@
 #SBATCH --ntasks 1
 ##SBATCH --mem-per-cpu 2000 ## in MB. Alternatively, --mem asks for mem (in MB) *per node*
 #SBATCH --mem 80000
-#SBATCH --job-name AF_15atom
+#SBATCH --job-name Chain_30
 #SBATCH --mail-type FAIL
 #SBATCH --mail-type END
 #SBATCH --mail-user crislemon93@gmail.com
@@ -40,6 +40,6 @@ python 2D_matrix.py
 
 # cp ${SCRATCH}/* ${SLURM_SUBMIT_DIR}
 #cp result-${SLURM_JOB_ID}.out ${SLURM_SUBMIT_DIR}
-cp ${SCRATCH}/{*.py,*.slurm,*.txt,*.pdf} ${RESULT_DIR}
+cp ${SCRATCH}/{*.py,*.slurm,*.txt,*.pdf, results} ${RESULT_DIR}
 
 

@@ -8,7 +8,7 @@ Created on Mon Oct  1 12:37:27 2018
 #everything in atomic units
 import numpy as np
 
-def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, delta):
+def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, delta, N_omega):
     
     # d = nstep*a distance between sites
     # N_atoms in the chain
@@ -61,7 +61,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
 
     "we define the omega vector"
     "from -N_delta/2 to N_delta/2"
-    N_omega = 2001
+    #N_omega = 2001
     N_delta = 4
     
     Romega = np.zeros([N_omega])
@@ -108,5 +108,5 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
         
         
         
-    return(GG , N_x, N_y, N_omega , vv)
+    return(GG , N_x, N_y, N_omega , vv, Go, Self, GG)
 
