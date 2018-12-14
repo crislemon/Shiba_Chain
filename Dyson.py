@@ -9,7 +9,7 @@ def Dyson_eq(Go , Self , N_x, N_y):
     
     Id = np.identity(4 * N_y * N_x)
    
-    matrx_inv = inv(Id -np.dot(Go, Self))
+    matrx_inv = inv(Id + np.dot(Go, Self))##### + o -?????
     gg = np.dot(matrx_inv , Go)
     
     

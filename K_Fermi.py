@@ -16,11 +16,19 @@ t1 = time.time()
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 14 #number of atoms
-borde = 3 
-ancho = 7
-alpha = 2.0 #SOC
+N_atoms = 20 #number of atoms
+borde = 3
+ancho = 5
+alpha = 5.5 #SOC
 state = 'FM' #spin state
+k_F = 0.183
+U = 5500./27211.6#%potential scatt
+U = 0.0
+j = 1800./27211.6 #coupling
+DOS = 1.0
+s = 5.0/2.0 #spin
+delta = 0.75/27211.6 #SC gap
+N_omega = 2001
 
 
 K_Fermi = [0.19, 0.20, 0.202 ,0.205, 0.208 ,0.21, 0.215 ,0.22, 0.2205, 0.225, 0.23]
@@ -28,8 +36,8 @@ picos = []
 #picos = np.full((len(K_Fermi), 2), np.inf)
 
 for k_i in range(len(K_Fermi)):
-    (gg , N_x, N_y, N_omega , vv) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, K_Fermi[k_i])
-
+    (gg , N_x, N_y, N_omega , vv, Go, Self, GG) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
+    K_Fermi[k_i], U, j, DOS, s, delta, N_omega)
     spectro = np.zeros([N_y, N_x, N_omega], dtype= 'float')
     
     for i_atom in range(N_x):
