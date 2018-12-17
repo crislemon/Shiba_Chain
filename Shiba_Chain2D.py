@@ -100,15 +100,15 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
         Go = FG.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
         
         import Free_Gree_loop as FL
-        Go2 = FL.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
+        (Go2, go) = FL.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
     
         #Solve Dyson's equation
         import Dyson as Dy
-        gg = Dy.Dyson_eq(Go2 , Self , N_x, N_y)
+        gg = Dy.Dyson_eq(Go , Self , N_x, N_y)
         
         GG[:,:, i_omega] = gg
         
         
         
-    return(GG , N_x, N_y, N_omega , vv, Go, Self, Go2)
+    return(GG , N_x, N_y, N_omega , vv, Go, Self, Go2, go)
 

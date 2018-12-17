@@ -10,8 +10,8 @@ import numpy as np
 import scipy.spatial.distance
 
 
-N_x = 2
-N_y = 1
+N_x = 5
+N_y = 3
 nstep = 1.0
 
 #factor = 33

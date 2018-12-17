@@ -35,7 +35,7 @@ def Free_Green(N_x, N_y, lomega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_int
     ij = zip(jj,ii)
     ij = list(ij)
     IJ = np.array(ij, dtype = 'double')
-    rr = scipy.spatial.distance.cdist(IJ, IJ, metric='euclidean')#distance between sites
+    rr = scipy.spatial.distance.cdist(IJ, IJ, metric='euclidean')*a_interatomic#distance between sites
     rr[np.where(rr == 0)] = 100   # avoid 1 / 0 errors !!
     
     
@@ -44,14 +44,14 @@ def Free_Green(N_x, N_y, lomega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_int
     xi = Fermi_k / (mass_eff * SS)
 
     for i_y in range(N_y):
-        for i_x in range(N_x + 1):
-            g_i = (i_y)*(N_y) + (i_x)
+        for i_x in range(N_x):
+            g_i = (i_y)*(N_x) + (i_x)
 
         
             for j_y in range(N_y):
-                for j_x in range(N_x +1):
+                for j_x in range(N_x):
                     
-                    g_j = (g_j) = (j_y)*(N_y) + j_x
+                    g_j = (j_y)*(N_x) + j_x
                     factor = - pi * DOS_o * exp(-rr[g_i, g_j]/ xi) / (SS * Fermi_k * rr[g_i, g_j])
                     
                 
@@ -93,4 +93,4 @@ def Free_Green(N_x, N_y, lomega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_int
     
     
     
-    return (G)
+    return (G, g)

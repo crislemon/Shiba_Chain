@@ -11,7 +11,7 @@ import cmath as cm
 import scipy.spatial.distance
 
 N_x = 3
-N_y = 2
+N_y = 5
 
 
 g = np.zeros([N_x * N_y, N_x * N_y, 4, 4], dtype = complex)
@@ -31,13 +31,13 @@ IJ = np.array(ij, dtype = 'double')
 rr = scipy.spatial.distance.cdist(IJ, IJ, metric='euclidean')#distance between sites
 
 for i_y in range(N_y):
-    for i_x in range(N_x + 1):
-        g_i = (i_y)*(N_y) + (i_x)
+    for i_x in range(N_x):
+        g_i = (i_y)*(N_x) + (i_x)
 
         
         for j_y in range(N_y):
-            for j_x in range(N_x +1):
-                g_j = (g_j) = (j_y)*(N_y) + j_x
+            for j_x in range(N_x):
+                g_j = (g_j) = (j_y)*(N_x) + j_x
                 
                 tupla[g_i, g_j] = (g_i, g_j)
                 
