@@ -86,6 +86,8 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     import Self_Energy2D as SE
     Self = SE.Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda)
     
+    import Self_Energy_loop as SL
+    Self2 = SL.Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda)
     
     GG = np.zeros([4 * N_y * N_x , 4 * N_y * N_x, N_omega], dtype=complex)
     
@@ -100,15 +102,17 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
         Go = FG.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
         
         import Free_Gree_loop as FL
-        (Go2, go) = FL.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
+        #(Go2, go) = FL.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
+        Go2=0
+        go=0
     
         #Solve Dyson's equation
         import Dyson as Dy
-        gg = Dy.Dyson_eq(Go , Self , N_x, N_y)
+        gg = Dy.Dyson_eq(Go , Self2 , N_x, N_y)
         
         GG[:,:, i_omega] = gg
         
         
         
-    return(GG , N_x, N_y, N_omega , vv, Go, Self, Go2, go)
+    return(GG , N_x, N_y, N_omega , vv, Go, Self, Go2, Self2)
 

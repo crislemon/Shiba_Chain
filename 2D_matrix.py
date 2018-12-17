@@ -16,12 +16,12 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 1 #number of atoms
-borde = 2
-ancho = 5
+N_atoms = 8 #number of atoms
+borde = 4
+ancho = 11
 alpha = 0.0 #SOC
 state = 'FM' #spin state
-k_F = 0.183
+k_F = 0.0412
 U = 5500./27211.6#%potential scatt
 #U = 0.0
 j = 1800./27211.6 #coupling
@@ -34,7 +34,7 @@ N_omega = 1501
 
 import Shiba_Chain2D as sc2
 t1=time.time()
-(gg , N_x, N_y, N_omega , vv, Go, Self, Go2, go) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
+(gg , N_x, N_y, N_omega , vv, Go, Self, Go2, Self2) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
 k_F, U, j, DOS, s, delta, N_omega)
 t2 = time.time()
  
