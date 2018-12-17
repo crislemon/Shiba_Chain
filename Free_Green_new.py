@@ -20,6 +20,7 @@ exp = np.exp
 def Free_Green(N_x, N_y, lomega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic):
 
     G = np.zeros([N_x * N_y * 4, N_x * N_y * 4], dtype=complex)
+    g = np.zeros([N_x, N_y, 4, 4], dtype = complex)
     omega = lomega + 1j * Damping
 
     # Non diagonal in atom
