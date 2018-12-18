@@ -48,7 +48,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     #thetaS =np.linspace(0, 2.0 * pi, N_atoms)
     
     "Material data Bi2Pd"
-    Damping = 0.018/27211.6 #Dynes damping
+    Damping = 0.02/27211.6 #Dynes damping
     Delta=0.75/27211.6 #SC gap
     Delta = delta
     DOS_o = DOS #Normal phase DOS
@@ -58,6 +58,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
 
     "spin-orbit coupling"
     lamda = (alpha/(2 * 3.36))/27.2116
+    #lamda = (alpha/(3.36))/27.2116
 
     "we define the omega vector"
     "from -N_delta/2 to N_delta/2"
@@ -86,6 +87,8 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     import Self_Energy2D as SE
     Self = SE.Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda)
     
+    import Self_Energy_loop as SL
+    Self2 = SL.Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda)
     
     GG = np.zeros([4 * N_y * N_x , 4 * N_y * N_x, N_omega], dtype=complex)
     
@@ -99,14 +102,18 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
         import Free_Green_new as FG
         Go = FG.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
         
+        import Free_Gree_loop as FL
+        #(Go2, go) = FL.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
+        Go2=0
+        go=0
     
         #Solve Dyson's equation
         import Dyson as Dy
-        gg = Dy.Dyson_eq(Go , Self , N_x, N_y)
+        gg = Dy.Dyson_eq(Go , Self2 , N_x, N_y)
         
         GG[:,:, i_omega] = gg
         
         
         
-    return(GG , N_x, N_y, N_omega , vv, Go, Self, GG)
+    return(GG , N_x, N_y, N_omega , vv, Go, Self, Go2, Self2)
 

@@ -16,10 +16,10 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 3 #number of atoms
-borde = 4
-ancho = 5
-alpha = 0.0 #SOC
+N_atoms = 5 #number of atoms
+borde = 3
+ancho = 7
+alpha = 2.5 #SOC
 state = 'FM' #spin state
 k_F = 0.183
 U = 5500./27211.6#%potential scatt
@@ -28,13 +28,13 @@ j = 1800./27211.6 #coupling
 DOS = 1.0
 s = 5.0/2.0 #spin
 delta = 0.75/27211.6 #SC gap
-N_omega = 2001
+N_omega = 1501
 
 ################################################# We solve Dyson's equation
 
 import Shiba_Chain2D as sc2
 t1=time.time()
-(gg , N_x, N_y, N_omega , vv, Go, Self, GG) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
+(gg , N_x, N_y, N_omega , vv, Go, Self, Go2, Self2) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
 k_F, U, j, DOS, s, delta, N_omega)
 t2 = time.time()
  

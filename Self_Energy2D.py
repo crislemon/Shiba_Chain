@@ -94,7 +94,7 @@ def Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda):
             for j_matrix in range(N_y * N_x):
                 for i in range (4):
                     for t in range (4):
-                        Self2[i_matrix*4+i,j_matrix*4+t] = se2[i_matrix,j_matrix,i,t]
+                        Self2[i_matrix * 4 + i, j_matrix * 4 + t] = se2[i_matrix, j_matrix, i, t]
     
     return(Self + Self2)
     #we sum up the exchange interaction and SOC
