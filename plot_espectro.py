@@ -26,7 +26,7 @@ def espectro(spectro, row, vv, borde):
     plt.style.use('seaborn-bright')
     plt.plot(vv, spectro_chain,linewidth=0.8)
     plt.plot(peaks,spectro_chain[ndexes],'y*')
-    plt.xlabel('mV')
+    plt.xlabel('meV')
     plt.ylabel('PDOS')
     plt.title('We use peak # %i ' %i)
     plt.savefig('results/spectro.pdf')

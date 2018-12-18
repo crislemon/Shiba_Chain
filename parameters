@@ -1,0 +1,9 @@
+#!/bin/bash
+a=10
+b=1
+c=55
+export a
+export b
+
+python test_bash.py
+
