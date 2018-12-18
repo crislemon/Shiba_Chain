@@ -67,21 +67,21 @@ def Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda):
     
     #the coupling along y direction (sigma_x)
     
-     for i_matrix in range(N_y - 1):
-         for j_matrix in range(N_x):
-            
-             g_i = (i_matrix)*N_x + j_matrix
-             g_j = (i_matrix + 1)*N_x + j_matrix
-            
-             Self [g_i, g_j, 0, 1]= - ui * lamda
-             Self [g_i, g_j, 1, 0]= - ui * lamda
-             Self [g_i, g_j, 2, 3]= - ui * lamda
-             Self [g_i, g_j, 3, 2]= - ui * lamda
-
-             Self [g_j, g_i, 0, 1]= ui * lamda
-             Self [g_j, g_i, 1, 0]= ui * lamda
-             Self [g_j, g_i, 2, 3]= ui * lamda
-             Self [g_j, g_i, 3, 2]= ui * lamda
+#     for i_matrix in range(N_y - 1):
+#         for j_matrix in range(N_x):
+#            
+#             g_i = (i_matrix)*N_x + j_matrix
+#             g_j = (i_matrix + 1)*N_x + j_matrix
+#            
+#             Self [g_i, g_j, 0, 1]= - ui * lamda
+#             Self [g_i, g_j, 1, 0]= - ui * lamda
+#             Self [g_i, g_j, 2, 3]= - ui * lamda
+#             Self [g_i, g_j, 3, 2]= - ui * lamda
+#
+#             Self [g_j, g_i, 0, 1]= ui * lamda
+#             Self [g_j, g_i, 1, 0]= ui * lamda
+#             Self [g_j, g_i, 2, 3]= ui * lamda
+#             Self [g_j, g_i, 3, 2]= ui * lamda
             
      for i in range(N_x*N_y):
         for j in range(N_x*N_y):

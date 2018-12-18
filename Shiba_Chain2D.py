@@ -48,7 +48,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     #thetaS =np.linspace(0, 2.0 * pi, N_atoms)
     
     "Material data Bi2Pd"
-    Damping = 0.018/27211.6 #Dynes damping
+    Damping = 0.02/27211.6 #Dynes damping
     Delta=0.75/27211.6 #SC gap
     Delta = delta
     DOS_o = DOS #Normal phase DOS
@@ -58,6 +58,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
 
     "spin-orbit coupling"
     lamda = (alpha/(2 * 3.36))/27.2116
+    #lamda = (alpha/(3.36))/27.2116
 
     "we define the omega vector"
     "from -N_delta/2 to N_delta/2"

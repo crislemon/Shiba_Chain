@@ -16,12 +16,12 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 8 #number of atoms
-borde = 4
-ancho = 11
-alpha = 0.0 #SOC
+N_atoms = 5 #number of atoms
+borde = 3
+ancho = 7
+alpha = 2.5 #SOC
 state = 'FM' #spin state
-k_F = 0.0412
+k_F = 0.183
 U = 5500./27211.6#%potential scatt
 #U = 0.0
 j = 1800./27211.6 #coupling
