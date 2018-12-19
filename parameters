@@ -1,9 +1,32 @@
 #!/bin/bash
-a=10
-b=1
-c=55
-export a
-export b
+d=1.0
+N_atoms=3
+borde=4
+ancho=7
+alpha=2.5
+state='FM'
+k_F=0.183
+U=5500
+U=0.0
+j=1800 
+DOS=1.0
+s=2.5 
+delta=0.75 
+N_omega=1501
 
-python test_bash.py
+export d
+export N_atoms
+export borde
+export ancho
+export alpha
+export state
+export k_F
+export U
+export j
+export DOS
+export s
+export delta
+export N_omega
+
+python 2D_matrix.py
 

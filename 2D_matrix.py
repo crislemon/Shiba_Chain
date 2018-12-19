@@ -13,22 +13,27 @@ import numpy as np
 import matplotlib as mpl
 mpl.use('Agg')
 import time
+import os
+
+####parameters
 
 pi=np.pi
-d = 1.0 #distance between sites
-N_atoms = 22 #number of atoms
-borde = 2
-ancho = 7
-alpha = 2.5 #SOC
-state = 'FM' #spin state
-k_F = 0.183
-U = 5500./27211.6#%potential scatt
-U = 0.0
-j = 1800./27211.6 #coupling
-DOS = 1.0
-s = 5.0/2.0 #spin
-delta = 0.75/27211.6 #SC gap
-N_omega = 1501
+d = float(os.environ["d"])
+N_atoms = int(os.environ["N_atoms"])
+borde = int(os.environ["borde"])
+ancho = int(os.environ["ancho"])
+alpha = float(os.environ["alpha"])
+state = str(os.environ["state"])
+k_F = float(os.environ["k_F"]) 
+U = float(os.environ["U"])
+U = U/27211.6
+j = float(os.environ["j"])
+j = j/27211.6 #a.u.
+DOS = float(os.environ["DOS"])
+s = float(os.environ["s"])
+delta = float(os.environ["delta"])
+delta = delta/27211.6
+N_omega = int(os.environ["N_omega"])
 
 ################################################# We solve Dyson's equation
 
