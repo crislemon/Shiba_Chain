@@ -16,19 +16,19 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 22 #number of atoms
-borde = 2
-ancho = 7
-alpha = 2.5 #SOC
+N_atoms = 0 #number of atoms
+borde = 7
+ancho = 12
+alpha = 10.0 #SOC
 state = 'FM' #spin state
 k_F = 0.183
 U = 5500./27211.6#%potential scatt
-U = 0.0
+#U = 0.0
 j = 1800./27211.6 #coupling
 DOS = 1.0
 s = 5.0/2.0 #spin
 delta = 0.75/27211.6 #SC gap
-N_omega = 1501
+N_omega = 2001
 
 ################################################# We solve Dyson's equation
 
