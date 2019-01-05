@@ -16,68 +16,90 @@ t1 = time.time()
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 20 #number of atoms
-borde = 3
+N_atoms = 22 #number of atoms
+borde = 2
 ancho = 5
-alpha = 5.5 #SOC
+alpha = 2.5 #SOC
 state = 'FM' #spin state
-k_F = 0.183
-U = 5500./27211.6#%potential scatt
+#k_F = 0.183
+U = -5500./27211.6#%potential scatt
 U = 0.0
-j = 1800./27211.6 #coupling
+j = -1800./27211.6 #coupling
 DOS = 1.0
 s = 5.0/2.0 #spin
 delta = 0.75/27211.6 #SC gap
 N_omega = 2001
+range_omega = 1.0
+
+N_k = 6
 
 
-K_Fermi = [0.19, 0.20, 0.202 ,0.205, 0.208 ,0.21, 0.215 ,0.22, 0.2205, 0.225, 0.23]
+k_Fermi = np.linspace(0.15,0.2, N_k)
 picos = []
-#picos = np.full((len(K_Fermi), 2), np.inf)
+spectro_K = np.zeros([N_omega, N_k])
 
-for k_i in range(len(K_Fermi)):
-    (gg , N_x, N_y, N_omega , vv, Go, Self, GG) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
-    K_Fermi[k_i], U, j, DOS, s, delta, N_omega)
+for k_i in range(len(k_Fermi)):
+    (gg , N_x, N_y, N_omega , vv, Go, Self, Go2, Self2) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
+    k_Fermi[k_i], U, j, DOS, s, delta, N_omega, range_omega)
     spectro = np.zeros([N_y, N_x, N_omega], dtype= 'float')
     
-    for i_atom in range(N_x):
-        for j_atom in range(N_y):
-            I = i_atom + (j_atom)*N_x
+    for i_atom in range(N_y):
+        for j_atom in range(N_x):
+            I = i_atom*N_x + j_atom
 
             for i_omega in range(N_omega):
              
                 tr = gg[I*4 + 0, I*4 + 0, i_omega] + gg[I*4 + 1, I*4 + 1, i_omega]
-                spectro[j_atom , i_atom, i_omega]= - (tr.imag)/(2*pi)
-             
+                spectro[i_atom , j_atom, i_omega]= - (tr.imag)/(2*pi)
+                
+    row = int(N_y/2)         
+    spectro_K[:, k_i] = spectro[row,borde,:]
     
-    row = int(N_y/2)
-    spectro_chain = spectro[row, borde, :]#spectrum in the first atom
-    ndexes = dp.detect_peaks(spectro_chain)#find the peaks
-    peaks = vv[ndexes]
-
-    minpeak = min(abs(peaks))#find the minimum
-    peaks2 = abs(peaks)
-    #peaks = peaks.tolist()
-    #peaks2 = peaks2.tolist()
-    picos_index = np.where(peaks2 == minpeak)
-    picos.append( peaks[picos_index] )
-    #i=peaks2.index(minpeak)#the index of the peak closest to zero
+#    spectro_chain = spectro[row, borde, :]#spectrum in the first atom
+#    ndexes = dp.detect_peaks(spectro_chain)#find the peaks
+#    peaks = vv[ndexes]
+#
+#    minpeak = min(abs(peaks))#find the minimum
+#    peaks2 = abs(peaks)
+#    
+#    picos_index = np.where(peaks2 == minpeak)
+#    picos.append( peaks[picos_index] )
+#    
     del gg
 
 
-for xe, ye in zip(K_Fermi, picos):
-    plt.scatter([xe] * len(ye), ye, c = 'b', marker = 'o')
+#for xe, ye in zip(k_Fermi, picos):
+#    plt.scatter([xe] * len(ye), ye, c = 'b', marker = 'o')
+#
+#plt.figure(1)
+#plt.xlabel('K_Fermi')
+#plt.ylabel('Peak position (meV)')
+#plt.title('Central peak position vs K_F')
+##plt.xlim((0.17,0.215))
+#plt.savefig('results/K_fermi.pdf')
 
-plt.xlabel('K_Fermi')
-plt.ylabel('Peak position (meV)')
-plt.title('Central peak position vs K_F')
-plt.xlim((0.185,0.235))
+plt.figure(1)
+plt.imshow(spectro_K, aspect='auto', cmap = plt.cm.gnuplot)
+ticks = np.linspace(0, N_omega - 1, 3, dtype = 'int')
+ticklabels = vv[ticks]
+ticklabels = np.around(ticklabels, decimals=2)
+plt.yticks(ticks, ticklabels)
+
+ticks2 = np.linspace(0, len(k_Fermi) - 1, 3, dtype = 'int')
+ticklabels2 = k_Fermi[ticks2]
+ticklabels2 = np.around(ticklabels2, decimals=3)
+plt.xticks(ticks2, ticklabels2)
+
+plt.ylabel('Energy (meV)')
+plt.xlabel('k_f (a.u.)')
+plt.title('E vs k_F')
+plt.colorbar()
+plt.savefig('results/k_fermi2_dimer.pdf')
 
 t2 = time.time()
-
 print('the program is finished after', t2 - t1)
 
-plt.savefig('K_fermi.pdf')
+
 
 
 

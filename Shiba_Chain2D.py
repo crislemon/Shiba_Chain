@@ -8,7 +8,7 @@ Created on Mon Oct  1 12:37:27 2018
 #everything in atomic units
 import numpy as np
 
-def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, delta, N_omega):
+def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, delta, N_omega, range_omega):
     
     # d = nstep*a distance between sites
     # N_atoms in the chain
@@ -63,7 +63,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     "we define the omega vector"
     "from -N_delta/2 to N_delta/2"
     #N_omega = 2001
-    N_delta = 4
+    N_delta = range_omega
     
     Romega = np.zeros([N_omega])
     Romega=np.array(Romega, np.longdouble)
@@ -102,11 +102,9 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
         import Free_Green_new as FG
         Go = FG.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
         
-        import Free_Gree_loop as FL
+        #import Free_Gree_loop as FL
         #(Go2, go) = FL.Free_Green(N_x, N_y, omega, Damping, Fermi_k, mass_eff, DOS_o, Delta, a_interatomic)
-        Go2=0
-        go=0
-    
+        
         #Solve Dyson's equation
         import Dyson as Dy
         gg = Dy.Dyson_eq(Go , Self2 , N_x, N_y)
@@ -115,5 +113,5 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
         
         
         
-    return(GG , N_x, N_y, N_omega , vv, Go, Self, Go2, Self2)
+    return(GG , N_x, N_y, N_omega , vv, Go, Self, Self2)
 

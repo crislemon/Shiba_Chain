@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def profile(N_x, titulo, spectro, row, ndexes, i):
-    plt.figure(2)
+    plt.figure(3)
     profile = np.zeros(N_x, dtype= 'float')
     profile = spectro[row,:,ndexes[i]]
     plt.plot(profile,'--bo', linewidth=0.8)

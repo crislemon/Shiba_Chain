@@ -11,7 +11,7 @@ import numpy as np
 
 def Nambu(spectro_up, spectro_down, spectro_uphole, spectro_downhole, vv, row, borde):
     
-    plt.figure(3)
+    plt.figure(4)
     spectro_up_1 = spectro_up[row, borde, :]
     spectro_down_1 = spectro_down[row, borde, :]
     spectro_uphole_1 = spectro_uphole[row, borde, :]

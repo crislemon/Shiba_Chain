@@ -29,10 +29,10 @@ def Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda):
          phi_i = phi[i_atom]
          
          
-         Self [g_i, g_i, 0, 0]= J*S*cos(theta_i)+U
-         Self [g_i, g_i, 1, 1]= - J*S*cos(theta_i)+U
-         Self [g_i, g_i, 2, 2]= - J*S*cos(theta_i)-U
-         Self [g_i, g_i, 3, 3]= J*S*cos(theta_i)-U
+         Self [g_i, g_i, 0, 0]= J*S*cos(theta_i)-U
+         Self [g_i, g_i, 1, 1]= - J*S*cos(theta_i)-U
+         Self [g_i, g_i, 2, 2]= - J*S*cos(theta_i)+U
+         Self [g_i, g_i, 3, 3]= J*S*cos(theta_i)+U
          
          Self [g_i, g_i, 0, 1]= J*S*sin(theta_i)*exp(-ui*phi_i)
          Self [g_i, g_i, 1, 0]= J*S*sin(theta_i)*exp(ui*phi_i)
