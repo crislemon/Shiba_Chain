@@ -84,8 +84,8 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     "We calculate the Green's functions and solve Dyson eq"
     
     #impurity Hamiltonian
-    import Self_Energy2D as SE
-    Self = SE.Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda)
+    #    import Self_Energy2D as SE
+    #    Self = SE.Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda)
     
     import Self_Energy_loop as SL
     Self2 = SL.Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda)
@@ -113,5 +113,5 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
         
         
         
-    return(GG , N_x, N_y, N_omega , vv, Go, Self, Self2)
+    return(GG , N_x, N_y, N_omega , vv, Go, Self2)
 

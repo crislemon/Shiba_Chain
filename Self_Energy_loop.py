@@ -61,7 +61,7 @@ def Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda):
              Self[g_j, g_i, 0, 1]= - lamda
              Self[g_j, g_i, 1, 0]= lamda
              Self[g_j, g_i, 2, 3]= lamda
-             Self[g_j, g_i, 3, 2]= - lamda
+             Self[g_j, g_i, 3, 2]= -lamda
              ###cambiar signo o no????
 
     

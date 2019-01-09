@@ -16,13 +16,12 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 12 #number of atoms
-borde = 2
+N_atoms = 23 #number of atoms
+borde = 3
 ancho = 5
-alpha = 3.5 #SOC
-#alpha = 0.0 #SOC
+alpha = 4.5 #SOC
 state = 'FM' #spin state
-k_F = 0.21
+k_F = 0.183
 U = -5500./27211.6#%potential scatt
 U = 0.0
 #U = -1000.0/27211.6#%potential scatt
@@ -37,7 +36,7 @@ range_omega = 4
 
 import Shiba_Chain2D as sc2
 t1=time.time()
-(gg , N_x, N_y, N_omega , vv, Go, Self2) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
+(gg , N_x, N_y, N_omega , vv) = sc2.Shiba_Chain2(d, N_atoms, state, alpha, borde, ancho, 
 k_F, U, j, DOS, s, delta, N_omega, range_omega)
 t2 = time.time()
  
@@ -69,8 +68,7 @@ for i_atom in range(N_y):
              tr2 = gg[I*4 + 1, I*4 + 1, i_omega] + gg[I*4 + 3, I*4 + 3, N_omega - (i_omega+1)]
              spectro_spindown[i_atom , j_atom, i_omega]= - (tr2.imag)/(2*pi)
              
-             #tr3 = gg[I*4 + 0, I*4 + 0, i_omega] + gg[I*4 + 1, I*4 + 1, i_omega] + gg[I*4 + 2, I*4 + 2, N_omega - (i_omega+1)] + gg[I*4 + 3, I*4 + 3, N_omega - (i_omega+1)]
-             tr3 = gg[I*4 + 0, I*4 + 0, i_omega] + gg[I*4 + 1, I*4 + 1, i_omega]
+             tr3 = gg[I*4 + 0, I*4 + 0, i_omega] + gg[I*4 + 1, I*4 + 1, i_omega] + gg[I*4 + 2, I*4 + 2, N_omega - (i_omega+1)] + gg[I*4 + 3, I*4 + 3, N_omega - (i_omega+1)]
              spectro[i_atom , j_atom, i_omega]= - (tr3.imag)/(2*pi)
              
              trup = gg[I*4 + 0, I*4 + 0, i_omega]
@@ -89,7 +87,7 @@ for i_atom in range(N_y):
 row = int(N_y/2)
 medio=int(N_x/2)
 import plot_espectro as spect
-
+#(titulo, ndexes, i) = spect.espectro(spectro, spectro_2, spectro_3 ,row, vv, borde)
 (titulo, ndexes, i) = spect.espectro(spectro, spectro_spinup, spectro_spindown ,row, vv, borde)
 
 
