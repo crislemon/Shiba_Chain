@@ -7,7 +7,7 @@ Created on Mon Dec 10 16:26:57 2018
 """
 import matplotlib.pyplot as plt
 import detect_peaks as dp
-#plt.rcParams.update({'font.size': 18})
+plt.rcParams.update({'font.size': 15})
 
 def espectro(spectro, spectro_spinup, spectro_spindown ,row, vv, borde):
     
@@ -29,7 +29,7 @@ def espectro(spectro, spectro_spinup, spectro_spindown ,row, vv, borde):
     plt.plot(peaks,spectro_chain[ndexes],'y*')
     plt.xlabel('meV')
     plt.ylabel('PDOS')
-    plt.title('We use peak # %i ' %i)
+    #plt.title('We use peak # %i ' %i)
     plt.savefig('results/spectro.pdf')
     
     spectro_chain_up = spectro_spinup[row, borde, :]#spectrum in the first atom
@@ -39,7 +39,7 @@ def espectro(spectro, spectro_spinup, spectro_spindown ,row, vv, borde):
     
     plt.figure(2)
     plt.style.use('seaborn-bright')
-    plt.plot(vv, spectro_chain,linewidth=0.8, label = 'Nambu 1+2+3+4')
+    plt.plot(vv, spectro_chain,linewidth=0.8, label = 'Nambu 1+2')
     plt.plot(vv, spectro_chain_up,linewidth=0.8, label = 'Nambu 1+3')
     plt.plot(vv, spectro_chain_down,linewidth=0.8, label = 'Nambu 2+4')
     plt.xlabel('meV')

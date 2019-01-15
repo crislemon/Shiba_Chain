@@ -8,6 +8,7 @@ Created on Mon Dec 10 16:48:30 2018
 
 import matplotlib.pyplot as plt
 import numpy as np
+plt.rcParams.update({'font.size': 15})
 
 def profile(N_x, titulo, spectro, row, ndexes, i):
     plt.figure(3)

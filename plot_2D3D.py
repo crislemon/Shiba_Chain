@@ -9,8 +9,9 @@ Created on Mon Dec 10 17:24:47 2018
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 import numpy as np
+plt.rcParams.update({'font.size': 15})
 
-def map2D_3D(e, e_up, e_down, z, z_up, z_down, titulo, N_x, N_y, N_omega, vv):
+def map2D_3D(e, e_up, e_down, e_x, z, z_up, z_down, z_x, titulo, N_x, N_y, N_omega, vv):
     
     #2D plots
     plt.figure(5)
@@ -30,13 +31,20 @@ def map2D_3D(e, e_up, e_down, z, z_up, z_down, titulo, N_x, N_y, N_omega, vv):
     plt.colorbar()
     plt.title('Spin down' %titulo)
     plt.savefig('results/2D_N2.pdf')
-
+    
+    plt.figure(13)
+    plt.imshow(z_x, cmap = plt.cm.jet)
+    plt.colorbar()
+    plt.title('Spin x' %titulo)
+    plt.savefig('results/2D_x.pdf')
+    
     plt.figure(8)
     plt.imshow(e, aspect='auto', cmap = plt.cm.jet)
     ticks2 = np.linspace(0,N_x-1,5, dtype = 'int')
     ticks = np.linspace(0,N_omega-1,3, dtype = 'int')
     ticklabels = vv[ticks]
     
+
     for i in range(len(ticklabels)):
         ticklabels[i] = format(ticklabels[i], ".3g")
         
@@ -48,7 +56,6 @@ def map2D_3D(e, e_up, e_down, z, z_up, z_down, titulo, N_x, N_y, N_omega, vv):
     plt.colorbar()
     plt.savefig('results/map.pdf')
 
-    
     plt.figure(9)
     plt.imshow(e_up, aspect='auto', cmap = plt.cm.jet)
     ticks2 = np.linspace(0,N_x-1,5, dtype = 'int')
@@ -69,6 +76,17 @@ def map2D_3D(e, e_up, e_down, z, z_up, z_down, titulo, N_x, N_y, N_omega, vv):
     plt.ylabel('atom index')
     plt.title('Spin down')
     plt.savefig('results/map_down.pdf')
+    plt.colorbar()
+    
+    plt.figure(12)
+    plt.imshow(e_x, aspect='auto', cmap = plt.cm.jet)
+    ticks2 = np.linspace(0,N_x-1,5, dtype = 'int')
+    plt.xticks(ticks, ticklabels)
+    plt.yticks(ticks2)
+    plt.xlabel('Energy (meV)')
+    plt.ylabel('atom index')
+    plt.title('Spin x')
+    plt.savefig('results/map_x.pdf')
     plt.colorbar()
 
     
