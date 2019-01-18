@@ -8,11 +8,11 @@ Created on Mon Dec 10 17:02:00 2018
 
 import matplotlib.pyplot as plt
 import numpy as np
-plt.rcParams.update({'font.size': 15})
+plt.rcParams.update({'font.size': 13})
 
 def Nambu(spectro_up, spectro_down, spectro_uphole, spectro_downhole, vv, row, borde):
     
-    plt.figure(4)
+    plt.figure(6)
     spectro_up_1 = spectro_up[row, borde, :]
     spectro_down_1 = spectro_down[row, borde, :]
     spectro_uphole_1 = spectro_uphole[row, borde, :]

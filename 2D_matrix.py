@@ -16,13 +16,13 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 23 #number of atoms
+N_atoms = 24 #number of atoms
 borde = 2
 ancho = 5
+#alpha = 4.0 #SOC
 alpha = 3.0 #SOC
-#alpha = 0.0 #SOC
 state = 'FM' #spin state
-k_F = 0.4
+k_F = 0.55
 U = -5500./27211.6#%potential scatt
 U = 0.0
 #U = -3500.0/27211.6#%potential scatt
@@ -60,6 +60,12 @@ spectro_spindown = np.zeros([N_y, N_x, N_omega], dtype= 'float')#spin down spect
 
 spectro_spinx = np.zeros([N_y, N_x, N_omega], dtype= 'float')#spin x spectrum
 
+spectro_13 = np.zeros([N_y, N_x, N_omega], dtype= 'float')#13
+spectro_31 = np.zeros([N_y, N_x, N_omega], dtype= 'float')#31
+
+spectro_24 = np.zeros([N_y, N_x, N_omega], dtype= 'float')#13
+spectro_42 = np.zeros([N_y, N_x, N_omega], dtype= 'float')#31
+
 for i_atom in range(N_y):
     for j_atom in range(N_x):
          I = i_atom*N_x + j_atom
@@ -89,14 +95,25 @@ for i_atom in range(N_y):
              spectro_downhole[i_atom , j_atom, i_omega]= - (trdown_hole.imag)/(pi)
              
              trx = gg[I*4 + 2, I*4 + 3, i_omega] + gg[I*4 + 3, I*4 + 2, i_omega]
-             spectro_spinx[i_atom , j_atom, i_omega] = - (trx.imag)/(pi)
+             spectro_spinx[i_atom , j_atom, i_omega] = - (trx.imag)/(2*pi)
+             
+             tr_13 = gg[I*4 + 0, I*4 + 2, i_omega]
+             spectro_13[i_atom , j_atom, i_omega] = - (tr_13.imag)/(pi)
+             tr_31 = gg[I*4 + 2, I*4 + 0, i_omega]
+             spectro_31[i_atom , j_atom, i_omega] = - (tr_31.imag)/(pi)
+             
+             tr_24 = gg[I*4 + 1, I*4 + 3, i_omega]
+             spectro_24[i_atom , j_atom, i_omega] = - (tr_13.imag)/(pi)
+             tr_42 = gg[I*4 + 3, I*4 + 1, i_omega]
+             spectro_42[i_atom , j_atom, i_omega] = - (tr_31.imag)/(pi)
+             
 #####
 "Plot the spectrum in the first atom"
 row = int(N_y/2)
 medio=int(N_x/2)
 import plot_espectro as spect
 
-(titulo, ndexes, i) = spect.espectro(spectro, spectro_spinup, spectro_spindown, row, vv, borde)
+(titulo, ndexes, i) = spect.espectro(spectro, spectro_spinup, spectro_spindown, spectro_13, spectro_31, spectro_24, spectro_42, row, vv, borde)
 
 
 #####
@@ -115,8 +132,8 @@ nb.Nambu(spectro_up, spectro_down, spectro_uphole, spectro_downhole, vv, row, bo
 "creates 2D maps"
 
 import maps as mp
-(e, e_up, e_down, e_x, z, z_up, z_down, z_x) = mp.maps(N_y, N_x, 
-spectro, ndexes, i, N_omega, row, borde, vv, spectro_spinup, spectro_spindown, spectro_spinx)
+(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24) = mp.maps(N_y, N_x, 
+spectro, ndexes, i, N_omega, row, borde, vv, spectro_spinup, spectro_spindown, spectro_spinx, spectro_13, spectro_24)
 
 #z is the PDOS every where in the array for the energy 
 #corresponding to the closest peaks to zero in the first atom
@@ -127,7 +144,7 @@ spectro, ndexes, i, N_omega, row, borde, vv, spectro_spinup, spectro_spindown, s
 ###
 "2D and 3D plots"
 import plot_2D3D as map2D
-map2D.map2D_3D(e, e_up, e_down, e_x, z, z_up, z_down, z_x, titulo, N_x, N_y, N_omega, vv)
+map2D.map2D_3D(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24, titulo, N_x, N_y, N_omega, vv)
 
 
 "plot Green's function"
