@@ -18,4 +18,5 @@ def profile(N_x, titulo, spectro, row, ndexes, i):
     #plt.title('Profile at E = %f meV' %titulo)
     plt.xlabel('Atom index')
     plt.ylabel('PDOS')
-    plt.savefig('results/profile.pdf')
+    plt.savefig('profile.pdf')
+    np.savetxt('profile.txt', profile)

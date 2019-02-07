@@ -60,11 +60,6 @@ spectro, ndexes, i, N_omega, row, borde, vv, spectro_spinup, spectro_spindown, s
             e_x[i_atom,i_omega] = spectra2_x[i_atom,i_omega]
             e_13[i_atom,i_omega] = spectra2_13[i_atom,i_omega]
             e_24[i_atom,i_omega] = spectra2_24[i_atom,i_omega]
-    ###
-    "Save data"
-    data_spectro = np.array([vv,spectro[row, borde, :]])
-    data_3D = z
-    np.savetxt('results/data_spectro.txt', data_spectro)
-    np.savetxt('results/data_3D.txt', data_3D)
+   
     
     return(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24)

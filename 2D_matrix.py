@@ -16,21 +16,22 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 24 #number of atoms
-borde = 2
-ancho = 5
+N_atoms = 0 #number of atoms
+borde = 6
+ancho = 12
 #alpha = 4.0 #SOC
-alpha = 3.0 #SOC
+alpha = 4.5 #SOC
 state = 'FM' #spin state
-k_F = 0.55
+k_F = 0.183
 U = -5500./27211.6#%potential scatt
-U = 0.0
+#U = 0.0
 #U = -3500.0/27211.6#%potential scatt
 j = -1800./27211.6 #coupling
-j = -3100./27211.6
+#j = -3100./27211.6
 DOS = 1.0
 s = 5.0/2.0 #spin
 delta = 0.75/27211.6 #SC gap
+delta =0.0
 N_omega = 2003
 range_omega = 4
 
@@ -43,6 +44,7 @@ k_F, U, j, DOS, s, delta, N_omega, range_omega)
 t2 = time.time()
  
 print('The program is finished after', t2 - t1)
+
 
 ##################################################
 

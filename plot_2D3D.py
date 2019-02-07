@@ -18,7 +18,8 @@ def map2D_3D(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24,
     plt.imshow(z, cmap = plt.cm.jet)
     plt.colorbar(orientation='horizontal')
     plt.title('FM E = %f meV')
-    plt.savefig('results/2D.pdf')
+    plt.savefig('2D.pdf')
+    np.savetxt('2D.txt', z)
     
 #    plt.figure(6)
 #    plt.imshow(z_up, cmap = plt.cm.jet)
@@ -36,19 +37,22 @@ def map2D_3D(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24,
     plt.imshow(z_x, cmap = plt.cm.jet)
     plt.colorbar(orientation='horizontal')
     plt.title('Spin x')
-    plt.savefig('results/2D_x.pdf')
+    plt.savefig('2D_x.pdf')
+    np.savetxt('2D_x.txt', z_x)
     
     plt.figure(9)
-    plt.imshow(z_up - z_down, cmap = plt.cm.jet)
+    z_z = z_up - z_down
+    plt.imshow(z_z, cmap = plt.cm.jet)
     plt.colorbar(orientation='horizontal')
     plt.title('Spin z')
-    plt.savefig('results/2D_z.pdf')
+    plt.savefig('2D_z.pdf')
+    np.savetxt('2D_z.txt', z_z)
     
-    plt.figure(10)
-    plt.imshow(z_13 - z_24, cmap = plt.cm.jet)
-    plt.colorbar(orientation='horizontal')
-    plt.title('Spin 13 - 24')
-    plt.savefig('results/2D_13.pdf')
+#    plt.figure(10)
+#    plt.imshow(z_13 - z_24, cmap = plt.cm.jet)
+#    plt.colorbar(orientation='horizontal')
+#    plt.title('Spin 13 - 24')
+#    plt.savefig('results/2D_13.pdf')
     
     
     #################
@@ -70,7 +74,9 @@ def map2D_3D(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24,
     plt.ylabel('atom index')
     #plt.title('Atom index vs spectro')
     plt.colorbar()
-    plt.savefig('results/map.pdf')
+    plt.savefig('map.pdf')
+    np.savetxt('map.txt', e)
+    
 
 #    plt.figure(9)
 #    plt.imshow(e_up, aspect='auto', cmap = plt.cm.jet)
@@ -102,19 +108,20 @@ def map2D_3D(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24,
     plt.xlabel('Energy (meV)')
     plt.ylabel('atom index')
     plt.title('Spin z')
-    plt.savefig('results/map_z.pdf')
+    plt.savefig('map_z.pdf')
     plt.colorbar()
+    np.savetxt('map_z.txt', e_up - e_down)
     
-    plt.figure(13)
-    plt.imshow(e_13 - e_24, aspect='auto', cmap = plt.cm.jet)
-    ticks2 = np.linspace(0,N_x-1,5, dtype = 'int')
-    plt.xticks(ticks, ticklabels)
-    plt.yticks(ticks2)
-    plt.xlabel('Energy (meV)')
-    plt.ylabel('atom index')
-    plt.title('Spin 13 - 24')
-    plt.savefig('results/map_13.pdf')
-    plt.colorbar()
+#    plt.figure(13)
+#    plt.imshow(e_13 - e_24, aspect='auto', cmap = plt.cm.jet)
+#    ticks2 = np.linspace(0,N_x-1,5, dtype = 'int')
+#    plt.xticks(ticks, ticklabels)
+#    plt.yticks(ticks2)
+#    plt.xlabel('Energy (meV)')
+#    plt.ylabel('atom index')
+#    plt.title('Spin 13 - 24')
+#    plt.savefig('results/map_13.pdf')
+#    plt.colorbar()
     
     plt.figure(14)
     plt.imshow(e_x, aspect='auto', cmap = plt.cm.jet)
@@ -124,8 +131,10 @@ def map2D_3D(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24,
     plt.xlabel('Energy (meV)')
     plt.ylabel('atom index')
     plt.title('Spin x')
-    plt.savefig('results/map_x.pdf')
+    plt.savefig('map_x.pdf')
     plt.colorbar()
+    np.savetxt('map_x.txt', e_x)
+    
 
     
     #3D plot
@@ -137,4 +146,5 @@ def map2D_3D(e, e_up, e_down, e_x, e_13, e_24, z, z_up, z_down, z_x, z_13, z_24,
     ax.plot_wireframe(X, Y, z)
     plt.title('FM E = %f meV' %titulo)
     ax.set_zlabel('PDOS')
-    plt.savefig('results/3D.pdf')
+    plt.savefig('3D.pdf')
+    np.savetxt('3D.txt', z)
