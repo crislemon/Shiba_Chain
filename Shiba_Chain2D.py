@@ -24,7 +24,7 @@ def Shiba_Chain2(nstep, N_atoms, state, alpha, borde, ancho, k_f, U, j, DOS, s, 
     N_y = ancho
     
     #for d = 2a
-    #N_x = 2*N_atoms + 2*borde
+    #N_x = N_atoms + 2*borde + 1
     
     "Magnetic impurities parameters and spin state"
     S = 5.0/2.0 #Cr

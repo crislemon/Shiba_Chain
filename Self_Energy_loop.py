@@ -25,6 +25,7 @@ def Self_Energy(J, S, thetaS, phi, U, N_atoms, N_x, N_y, borde, lamda):
      for i_atom in range(N_atoms):
          
          g_i = int(N_y/2.0) * N_x + (i_atom + borde)
+         #g_i = int(N_y/2.0) * N_x + (2*i_atom + borde)##### d=2a
          theta_i = thetaS[i_atom]
          phi_i = phi[i_atom]
          

@@ -16,9 +16,9 @@ import time
 
 pi=np.pi
 d = 1.0 #distance between sites
-N_atoms = 0 #number of atoms
-borde = 6
-ancho = 12
+N_atoms = 2 #number of atoms
+borde = 1
+ancho = 3
 #alpha = 4.0 #SOC
 alpha = 4.5 #SOC
 state = 'FM' #spin state
@@ -31,7 +31,6 @@ j = -1800./27211.6 #coupling
 DOS = 1.0
 s = 5.0/2.0 #spin
 delta = 0.75/27211.6 #SC gap
-delta =0.0
 N_omega = 2003
 range_omega = 4
 
